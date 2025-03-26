@@ -27,9 +27,22 @@ def yeild(tickets):
 
 ## Code ##
 
-path = "Book.xlsx"
+path = "Lodd.xlsx"
 workbook = load_workbook(filename=path)
 sheet = workbook.active
+
+#purge the xlsx of all mt rows >:}
+rowstop = 0
+for row in sheet.iter_rows():
+    print(row[0].value)
+    if row[0].value is None or row[0].value == "":
+        rowstop = row[0].row
+        break
+print(rowstop)
+print(sheet.max_row)
+sheet.delete_rows(rowstop, sheet.max_row)
+workbook.save("Lodd.xlsx")
+print("Purged the empty rows")
 
 sheet['D4'] = "test"
 
@@ -130,6 +143,6 @@ for row in range(len(data[0])):
 
 
 print("Saving as new excel sheet")
-workbook.save("liste.xlsx")
+workbook.save("Fordelte-lodd.xlsx")
 print("Finished! sould be written to excel now :)")
 
